@@ -6,6 +6,7 @@ public class LaserGunTargettingSystem : TurretTargettingSystem {
 	AudioSource laserSound;
 
 	override public void Start() {
+		// TODO (Issue 1) - Sort out the line renderer... It's a rubbish laser!
 		lineRenderer = gameObject.GetComponent<LineRenderer> ();
 		laserSound = gameObject.GetComponent<AudioSource> ();
 		base.Start ();
