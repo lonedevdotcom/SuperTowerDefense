@@ -21,6 +21,7 @@ abstract public class TurretTargettingSystem : MonoBehaviour {
 	void Update () {
 		if (currentTurretState == TurretState.Disabled) {
 			// TODO - Work out disabled logic
+			// But this is being used as the state when dragging a new turret on!
 		} else if (currentTurretState == TurretState.Idle) {
 			CheckForEnemiesInRange ();
 		} else if (currentTurretState == TurretState.LockingOn) {
@@ -110,7 +111,7 @@ abstract public class TurretTargettingSystem : MonoBehaviour {
 			transform.LookAt (targetPosition);
 	}
 
-	void SetCurrentTurretState(TurretState state) {
+	public void SetCurrentTurretState(TurretState state) {
 		currentTurretState = state;
 
 		if (currentTurretState == TurretState.Engaged) {
