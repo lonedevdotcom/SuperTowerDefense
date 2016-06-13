@@ -66,7 +66,13 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	}
 
 	public void OnEndDrag(PointerEventData eventData) {
-		// Debug.Log("Drag stopped");
+		// If the prefab instance is active after dragging stopped, it means
+		// it's in the arena so (for now), just drop it in.
+		if (prefabInstance.activeSelf) {
+			Instantiate (prefab, prefabInstance.transform.position, Quaternion.identity);
+		}
+
+		// Then set it to inactive ready for the next drag!
 		prefabInstance.SetActive (false);
 	}
 }
