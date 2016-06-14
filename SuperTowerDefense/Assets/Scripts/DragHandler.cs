@@ -4,25 +4,25 @@ using UnityEngine.EventSystems;
 
 public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
 	public GameObject prefab;
-	GameObject prefabInstance;
+	GameObject hoverPrefab;
 
 	// Use this for initialization
 	void Start () {
-		prefabInstance = Instantiate (prefab);
+		hoverPrefab = Instantiate (prefab);
 		RemoveScriptsFromPrefab ();
-		AdjustPrefAlpha ();
-		prefabInstance.SetActive (false);
+		AdjustPrefabAlpha ();
+		hoverPrefab.SetActive (false);
 	}
 
 	void RemoveScriptsFromPrefab() {
-		Component[] components = prefabInstance.GetComponentsInChildren<TurretTargettingSystem>();
+		Component[] components = hoverPrefab.GetComponentsInChildren<TurretTargettingSystem>();
 		foreach (Component component in components) {
 			Destroy (component);
 		}
 	}
 
-	void AdjustPrefAlpha() {
-		MeshRenderer[] meshRenderers = prefabInstance.GetComponentsInChildren<MeshRenderer> ();
+	void AdjustPrefabAlpha() {
+		MeshRenderer[] meshRenderers = hoverPrefab.GetComponentsInChildren<MeshRenderer> ();
 		for (int i = 0; i < meshRenderers.Length; i++) {
 			Material mat = meshRenderers [i].material;
 			meshRenderers [i].material.color = new Color (mat.color.r, mat.color.g, mat.color.b, 0.5f);
@@ -46,11 +46,11 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 		if ( hits != null && hits.Length > 0) {
 			int terrainCollderQuadIndex = GetTerrainColliderQuadIndex (hits);
 			if (terrainCollderQuadIndex != -1) {
-				prefabInstance.transform.position = hits[terrainCollderQuadIndex].point;
-				prefabInstance.SetActive (true);
+				hoverPrefab.transform.position = hits[terrainCollderQuadIndex].point;
+				hoverPrefab.SetActive (true);
 				// Debug.Log (hits [terrainCollderQuadIndex].point);
 			} else {
-				prefabInstance.SetActive (false);
+				hoverPrefab.SetActive (false);
 			}
 		}
 	}
@@ -68,11 +68,11 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	public void OnEndDrag(PointerEventData eventData) {
 		// If the prefab instance is active after dragging stopped, it means
 		// it's in the arena so (for now), just drop it in.
-		if (prefabInstance.activeSelf) {
-			Instantiate (prefab, prefabInstance.transform.position, Quaternion.identity);
+		if (hoverPrefab.activeSelf) {
+			Instantiate (prefab, hoverPrefab.transform.position, Quaternion.identity);
 		}
 
 		// Then set it to inactive ready for the next drag!
-		prefabInstance.SetActive (false);
+		hoverPrefab.SetActive (false);
 	}
 }
