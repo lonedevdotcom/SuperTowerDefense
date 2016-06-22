@@ -53,7 +53,7 @@ abstract public class TurretTargettingSystem : MonoBehaviour {
 	void OnTriggerExit(Collider collider) {
 		
 		if (collider.gameObject.tag == "Enemy") {
-			Debug.Log ("Enemy went out of range. Removing from array");
+			// Debug.Log ("Enemy went out of range. Removing from array");
 
 			enemyGameObjects.Remove (collider.gameObject);
 
@@ -68,6 +68,7 @@ abstract public class TurretTargettingSystem : MonoBehaviour {
 	}
 
 	void CheckForEnemiesInRange() {
+		// Debug.Log ("Checking for enemies in Range");
 		if (enemyGameObjects.Count > 0) {
 			int nearestEnemyIndex = GetNearestEnemyIndex ();
 			currentTarget = (GameObject)enemyGameObjects [nearestEnemyIndex];
@@ -92,6 +93,7 @@ abstract public class TurretTargettingSystem : MonoBehaviour {
 	}
 
 	private void LockOn() {
+		// Debug.Log ("Locking On");
 		Vector3 currentTargetPosition = currentTarget.transform.position;
 		currentTargetPosition.y = transform.position.y; // This is to ensure the turret doesn't angle up or down.
 		Vector3 targetDirection = currentTargetPosition - transform.position;

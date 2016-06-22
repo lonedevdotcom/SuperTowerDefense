@@ -6,7 +6,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	public GameObject prefab;
 	GameObject hoverPrefab;
 	public GameObject[] availableSlots;
-	GameObject activeSlot; // NEW
+	GameObject activeSlot;
 
 	// Use this for initialization
 	void Start () {
@@ -50,10 +50,10 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 			int slotIndex = GetSlotIndex (hits);
 			if (slotIndex != -1) {
 				GameObject slotQuad = hits [slotIndex].collider.gameObject;
-				activeSlot = slotQuad; // NEW
+				activeSlot = slotQuad;
 				EnableSlot (slotQuad);
 			}  else {
-				activeSlot = null; //NEW
+				activeSlot = null;
 				DisableAllSlots ();
 			}
 		}
@@ -106,8 +106,6 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	}
 
 	public void OnEndDrag(PointerEventData eventData) {
-		
-
 		if (activeSlot != null) {
 			MeshFilter mf = activeSlot.GetComponent<MeshFilter> ();
 			Vector3 quadCentre = GetQuadCentre (activeSlot);
