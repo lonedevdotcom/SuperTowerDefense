@@ -107,7 +107,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
 	public void OnEndDrag(PointerEventData eventData) {
 		if (activeSlot != null) {
-			MeshFilter mf = activeSlot.GetComponent<MeshFilter> ();
+			// MeshFilter mf = activeSlot.GetComponent<MeshFilter> ();
 			Vector3 quadCentre = GetQuadCentre (activeSlot);
 			Instantiate (prefab, quadCentre, Quaternion.identity);
 			activeSlot.SetActive (false);
